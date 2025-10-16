@@ -222,21 +222,6 @@
             margin: 20px 0;
         }
         
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
         .github-badge {
             background: #333;
             color: white;
@@ -247,6 +232,15 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+        }
+        
+        .debug-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -277,6 +271,12 @@
     </section>
 
     <div class="container">
+        <!-- Debug Info -->
+        <div class="debug-info">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Estado:</strong> <span id="image-status">Verificando imágenes...</span>
+        </div>
+
         <!-- Acceso al Sistema -->
         <section id="acceso">
             <h2 class="section-title">1. Acceso al Sistema</h2>
@@ -286,9 +286,9 @@
                 <p class="text-muted">El sistema ofrece diferentes formas de autenticación para mayor seguridad y comodidad del usuario.</p>
                 
                 <div class="image-wrapper">
-                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Login.png" 
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154715.jpg" 
                          alt="Página de Login del Sistema ERP" class="demo-image"
-                         onerror="handleImageError(this)">
+                         onerror="handleImageError(this, 'login')">
                     
                     <!-- Indicadores de clic para Login -->
                     <div class="click-indicator" style="top: 35%; left: 50%;" 
@@ -374,9 +374,9 @@
                 <p class="text-muted">Pantalla principal que muestra un resumen ejecutivo de toda la operación empresarial.</p>
                 
                 <div class="image-wrapper">
-                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Dashboard.png" 
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20153830.jpg" 
                          alt="Dashboard Principal del Sistema ERP" class="demo-image"
-                         onerror="handleImageError(this)">
+                         onerror="handleImageError(this, 'dashboard')">
                     
                     <!-- Indicadores de clic para Dashboard -->
                     <div class="click-indicator" style="top: 15%; left: 10%;" 
@@ -454,9 +454,9 @@
                 <p class="text-muted">Interfaz principal para gestionar todo el inventario de productos del sistema.</p>
                 
                 <div class="image-wrapper">
-                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Productos.png" 
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20153852.jpg" 
                          alt="Módulo de Gestión de Productos" class="demo-image"
-                         onerror="handleImageError(this)">
+                         onerror="handleImageError(this, 'productos')">
                     
                     <!-- Indicadores de clic para Productos -->
                     <div class="click-indicator" style="top: 10%; left: 85%;" 
@@ -541,9 +541,9 @@
                 <p class="text-muted">Formulario completo para gestionar toda la información de los productos del sistema.</p>
                 
                 <div class="image-wrapper">
-                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/FormularioProducto.png" 
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154057.jpg" 
                          alt="Formulario de Creación/Edición de Productos" class="demo-image"
-                         onerror="handleImageError(this)">
+                         onerror="handleImageError(this, 'formulario')">
                     
                     <!-- Indicadores de clic para Formulario -->
                     <div class="click-indicator" style="top: 20%; left: 45%;" 
@@ -642,9 +642,9 @@
                 <p class="text-muted">Administración completa de la base de datos de clientes y contactos comerciales.</p>
                 
                 <div class="image-wrapper">
-                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Clientes.png" 
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154409.jpg" 
                          alt="Módulo de Gestión de Clientes" class="demo-image"
-                         onerror="handleImageError(this)">
+                         onerror="handleImageError(this, 'clientes')">
                     
                     <div class="click-indicator" style="top: 25%; left: 45%;" 
                          onclick="showExplanation('clients-personal')">
@@ -698,9 +698,9 @@
                 <p class="text-muted">Control completo del proceso de ventas desde la creación hasta la entrega.</p>
                 
                 <div class="image-wrapper">
-                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Pedidos.png" 
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154348.jpg" 
                          alt="Módulo de Gestión de Pedidos" class="demo-image"
-                         onerror="handleImageError(this)">
+                         onerror="handleImageError(this, 'pedidos')">
                     
                     <div class="click-indicator" style="top: 20%; left: 75%;" 
                          onclick="showExplanation('orders-status')">
@@ -758,9 +758,9 @@
                 <p class="text-muted">Ajustes y parámetros generales que controlan el comportamiento de todo el sistema ERP.</p>
                 
                 <div class="image-wrapper">
-                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Configuracion.png" 
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154501.jpg" 
                          alt="Panel de Configuración del Sistema" class="demo-image"
-                         onerror="handleImageError(this)">
+                         onerror="handleImageError(this, 'configuracion')">
                     
                     <div class="click-indicator" style="top: 25%; left: 20%;" 
                          onclick="showExplanation('config-inventory')">
@@ -841,35 +841,51 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // URLs de las imágenes en GitHub
+        // URLs corregidas con los nombres exactos de las imágenes
         const imageUrls = {
-            login: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Login.png',
-            dashboard: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Dashboard.png',
-            productos: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Productos.png',
-            formulario: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/FormularioProducto.png',
-            clientes: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Clientes.png',
-            pedidos: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Pedidos.png',
-            configuracion: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Configuracion.png'
+            login: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154715.jpg',
+            dashboard: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20153830.jpg',
+            productos: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20153852.jpg',
+            formulario: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154057.jpg',
+            clientes: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154409.jpg',
+            pedidos: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154348.jpg',
+            configuracion: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Captura%20de%20pantalla%202025-10-16%20154501.jpg'
         };
 
+        let loadedImages = 0;
+        let totalImages = Object.keys(imageUrls).length;
+
         // Función para manejar errores de imágenes
-        function handleImageError(img) {
-            console.log('Error cargando imagen:', img.src);
-            img.alt = 'Imagen no disponible - Verificar repositorio GitHub';
-            img.style.border = '2px dashed #dc3545';
-            img.style.padding = '20px';
+        function handleImageError(img, imageType) {
+            console.log('Error cargando imagen:', imageType, img.src);
+            
+            // Actualizar contador
+            loadedImages++;
+            updateImageStatus();
             
             // Crear mensaje de error
             const errorMsg = document.createElement('div');
             errorMsg.innerHTML = `
                 <div class="alert alert-danger mt-2">
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    <strong>Error cargando imagen</strong><br>
-                    Verifica que el repositorio sea público y las imágenes existan en:<br>
-                    <code>${img.src}</code>
+                    <strong>Error cargando imagen: ${imageType}</strong><br>
+                    URL: <code>${img.src}</code><br>
+                    <small>Verifica que la imagen exista en el repositorio y el nombre sea correcto.</small>
                 </div>
             `;
             img.parentNode.appendChild(errorMsg);
+        }
+
+        // Función para actualizar el estado de las imágenes
+        function updateImageStatus() {
+            const statusElement = document.getElementById('image-status');
+            if (statusElement) {
+                statusElement.textContent = `Imágenes cargadas: ${loadedImages}/${totalImages}`;
+                
+                if (loadedImages === totalImages) {
+                    statusElement.innerHTML += ' <i class="fas fa-check text-success"></i>';
+                }
+            }
         }
 
         // Función para mostrar explicaciones
@@ -922,36 +938,31 @@
             });
         });
 
-        // Preload images para mejor performance
+        // Preload images y contar las que se cargan correctamente
         document.addEventListener('DOMContentLoaded', function() {
             showExplanation('login-email');
             
-            // Preload todas las imágenes
-            Object.values(imageUrls).forEach(url => {
+            // Preload todas las imágenes y contar las exitosas
+            Object.entries(imageUrls).forEach(([type, url]) => {
                 const img = new Image();
+                img.onload = function() {
+                    loadedImages++;
+                    updateImageStatus();
+                    console.log(`✅ Imagen cargada: ${type}`);
+                };
+                img.onerror = function() {
+                    console.log(`❌ Error cargando: ${type}`);
+                    updateImageStatus();
+                };
                 img.src = url;
             });
         });
 
-        // Verificar estado de las imágenes
+        // Verificar estado final de las imágenes
         window.addEventListener('load', function() {
-            const images = document.querySelectorAll('.demo-image');
-            let loadedCount = 0;
-            let errorCount = 0;
-
-            images.forEach(img => {
-                if (img.complete && img.naturalHeight !== 0) {
-                    loadedCount++;
-                } else {
-                    errorCount++;
-                }
-            });
-
-            console.log(`Imágenes cargadas: ${loadedCount}, Errores: ${errorCount}`);
-            
-            if (errorCount > 0) {
-                console.log('Algunas imágenes no se cargaron. Verifica las URLs en GitHub.');
-            }
+            setTimeout(() => {
+                console.log(`Estado final: ${loadedImages}/${totalImages} imágenes cargadas`);
+            }, 2000);
         });
     </script>
 </body>
