@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - Sistema ERP SENA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+            background: #f8f9fa;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 20px;
+            margin: 60px 0 30px;
+            font-weight: 700;
+        }
+        
+        .demo-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .image-wrapper {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            background: #f8f9fa;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #dee2e6;
+        }
+        
+        .demo-image {
+            max-width: 100%;
+            max-height: 600px;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .demo-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .click-indicator {
+            position: absolute;
+            background: var(--accent-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            cursor: pointer;
+            z-index: 10;
+            animation: pulse 2s infinite;
+            border: 3px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        .click-indicator:hover {
+            transform: scale(1.2);
+            background: #c0392b;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
+            50% { transform: scale(1.1); box-shadow: 0 6px 20px rgba(231, 76, 60, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4); }
+        }
+        
+        .tooltip-box {
+            background: var(--light-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--secondary-color);
+            display: none;
+        }
+        
+        .tooltip-box.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .step-number {
+            background: var(--secondary-color);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--success-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2c3e50 100%);
+            color: white;
+            padding: 50px 0 30px;
+            margin-top: 80px;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #2980b9 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.5);
+        }
+        
+        .instruction-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .module-badge {
+            background: var(--warning-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 5px;
+        }
+        
+        .image-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #6c757d;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .github-badge {
+            background: #333;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-cubes me-2"></i>ERP SENA - Manual Visual
+            </a>
+            <div class="github-badge">
+                <i class="fab fa-github"></i>
+                <span>GitHub Pages</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Manual de Usuario Visual</h1>
+            <p class="lead mb-4">Guía interactiva con indicadores de clic para cada función del sistema ERP SENA</p>
+            <div class="alert alert-light d-inline-block">
+                <i class="fas fa-mouse-pointer me-2 text-primary"></i>
+                <strong>Haz clic en los círculos rojos</strong> sobre las imágenes para ver las explicaciones
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Acceso al Sistema -->
+        <section id="acceso">
+            <h2 class="section-title">1. Acceso al Sistema</h2>
+            
+            <div class="demo-container">
+                <h4><i class="fas fa-sign-in-alt me-2"></i>Página de Login - Múltiples Métodos de Autenticación</h4>
+                <p class="text-muted">El sistema ofrece diferentes formas de autenticación para mayor seguridad y comodidad del usuario.</p>
+                
+                <div class="image-wrapper">
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Login.png" 
+                         alt="Página de Login del Sistema ERP" class="demo-image"
+                         onerror="handleImageError(this)">
+                    
+                    <!-- Indicadores de clic para Login -->
+                    <div class="click-indicator" style="top: 35%; left: 50%;" 
+                         onclick="showExplanation('login-email')">
+                        1
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 45%; left: 50%;" 
+                         onclick="showExplanation('login-password')">
+                        2
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 58%; left: 50%;" 
+                         onclick="showExplanation('login-recaptcha')">
+                        3
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 70%; left: 50%;" 
+                         onclick="showExplanation('login-google')">
+                        4
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 78%; left: 50%;" 
+                         onclick="showExplanation('login-forgot')">
+                        5
+                    </div>
+                </div>
+
+                <!-- Explicaciones para Login -->
+                <div id="login-email" class="tooltip-box">
+                    <h6><i class="fas fa-envelope me-2 text-primary"></i>Campo de Email</h6>
+                    <p><strong>Función:</strong> Ingresar dirección de email registrada en el sistema.</p>
+                    <p><strong>Uso:</strong> Escribe tu email corporativo. El sistema validará el formato automáticamente.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-info-circle me-2"></i>Ejemplo: usuario@empresa.com
+                    </div>
+                </div>
+
+                <div id="login-password" class="tooltip-box">
+                    <h6><i class="fas fa-lock me-2 text-primary"></i>Campo de Contraseña</h6>
+                    <p><strong>Función:</strong> Ingresar contraseña de acceso al sistema.</p>
+                    <p><strong>Uso:</strong> Escribe tu contraseña. Es sensible a mayúsculas y minúsculas.</p>
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-exclamation-triangle me-2"></i>La contraseña se muestra oculta por seguridad
+                    </div>
+                </div>
+
+                <div id="login-recaptcha" class="tooltip-box">
+                    <h6><i class="fas fa-robot me-2 text-primary"></i>Protección reCAPTCHA</h6>
+                    <p><strong>Función:</strong> Verificar que el acceso es realizado por un usuario humano.</p>
+                    <p><strong>Uso:</strong> Marca la casilla "I'm not a robot". Puede requerir seleccionar imágenes.</p>
+                    <div class="alert alert-success mt-2">
+                        <i class="fas fa-shield-alt me-2"></i>Sistema de seguridad para prevenir acceso automatizado
+                    </div>
+                </div>
+
+                <div id="login-google" class="tooltip-box">
+                    <h6><i class="fab fa-google me-2 text-primary"></i>Acceso con Google OAuth</h6>
+                    <p><strong>Función:</strong> Autenticación rápida usando cuenta de Google.</p>
+                    <p><strong>Uso:</strong> Haz clic aquí para iniciar sesión con tu cuenta de Google corporativa.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-bolt me-2"></i>Método rápido que no requiere recordar contraseña adicional
+                    </div>
+                </div>
+
+                <div id="login-forgot" class="tooltip-box">
+                    <h6><i class="fas fa-key me-2 text-primary"></i>Recuperar Contraseña</h6>
+                    <p><strong>Función:</strong> Restablecer contraseña en caso de olvido.</p>
+                    <p><strong>Uso:</strong> Haz clic aquí para recibir un enlace de recuperación en tu email.</p>
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-envelope me-2"></i>Se enviarán instrucciones al email registrado
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Principal -->
+        <section id="dashboard">
+            <h2 class="section-title">2. Dashboard Principal</h2>
+            
+            <div class="demo-container">
+                <h4><i class="fas fa-tachometer-alt me-2"></i>Vista General del Sistema - Panel de Control</h4>
+                <p class="text-muted">Pantalla principal que muestra un resumen ejecutivo de toda la operación empresarial.</p>
+                
+                <div class="image-wrapper">
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Dashboard.png" 
+                         alt="Dashboard Principal del Sistema ERP" class="demo-image"
+                         onerror="handleImageError(this)">
+                    
+                    <!-- Indicadores de clic para Dashboard -->
+                    <div class="click-indicator" style="top: 15%; left: 10%;" 
+                         onclick="showExplanation('dashboard-menu')">
+                        1
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 30%; left: 35%;" 
+                         onclick="showExplanation('dashboard-products')">
+                        2
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 50%; left: 65%;" 
+                         onclick="showExplanation('dashboard-metrics')">
+                        3
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 75%; left: 80%;" 
+                         onclick="showExplanation('dashboard-user')">
+                        4
+                    </div>
+                </div>
+
+                <!-- Explicaciones para Dashboard -->
+                <div id="dashboard-menu" class="tooltip-box">
+                    <h6><i class="fas fa-bars me-2 text-primary"></i>Menú de Navegación Principal</h6>
+                    <p><strong>Función:</strong> Acceso a todos los módulos del sistema ERP.</p>
+                    <p><strong>Uso:</strong> Haz clic en cualquier opción del menú para navegar al módulo correspondiente.</p>
+                    <ul class="mt-2">
+                        <li><strong>Productos:</strong> Gestión de inventario</li>
+                        <li><strong>Clientes:</strong> Base de datos de clientes</li>
+                        <li><strong>Pedidos:</strong> Procesamiento de ventas</li>
+                        <li><strong>Compras:</strong> Gestión de proveedores</li>
+                    </ul>
+                </div>
+
+                <div id="dashboard-products" class="tooltip-box">
+                    <h6><i class="fas fa-box me-2 text-primary"></i>Tarjeta de Productos en Stock</h6>
+                    <p><strong>Función:</strong> Vista resumida del estado del inventario.</p>
+                    <p><strong>Uso:</strong> Muestra cantidad de productos activos y acceso rápido al módulo completo.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-chart-line me-2"></i>Click en la tarjeta para ir directamente al módulo de Productos
+                    </div>
+                </div>
+
+                <div id="dashboard-metrics" class="tooltip-box">
+                    <h6><i class="fas fa-chart-bar me-2 text-primary"></i>Métricas de Negocio</h6>
+                    <p><strong>Función:</strong> Indicadores clave de performance (KPI's).</p>
+                    <p><strong>Uso:</strong> Monitoreo visual de ventas, inventario y rendimiento operacional.</p>
+                    <ul class="mt-2">
+                        <li><strong>Ventas del mes:</strong> Total facturado</li>
+                        <li><strong>Stock bajo:</strong> Alertas de inventario</li>
+                        <li><strong>Pedidos pendientes:</strong> Por procesar</li>
+                    </ul>
+                </div>
+
+                <div id="dashboard-user" class="tooltip-box">
+                    <h6><i class="fas fa-user-circle me-2 text-primary"></i>Menú de Usuario</h6>
+                    <p><strong>Función:</strong> Gestión de perfil y sesión de usuario.</p>
+                    <p><strong>Uso:</strong> Haz clic para ver opciones de perfil, configuración y cierre de sesión.</p>
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-sign-out-alt me-2"></i>Incluye opción para cerrar sesión de forma segura
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gestión de Productos -->
+        <section id="productos">
+            <h2 class="section-title">3. Gestión de Productos - CRUD Completo</h2>
+            
+            <!-- Listado de Productos -->
+            <div class="demo-container">
+                <h4><i class="fas fa-boxes me-2"></i>Módulo de Productos - Vista de Catálogo</h4>
+                <p class="text-muted">Interfaz principal para gestionar todo el inventario de productos del sistema.</p>
+                
+                <div class="image-wrapper">
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Productos.png" 
+                         alt="Módulo de Gestión de Productos" class="demo-image"
+                         onerror="handleImageError(this)">
+                    
+                    <!-- Indicadores de clic para Productos -->
+                    <div class="click-indicator" style="top: 10%; left: 85%;" 
+                         onclick="showExplanation('products-new')">
+                        1
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 25%; left: 30%;" 
+                         onclick="showExplanation('products-card')">
+                        2
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 40%; left: 90%;" 
+                         onclick="showExplanation('products-edit')">
+                        3
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 55%; left: 90%;" 
+                         onclick="showExplanation('products-delete')">
+                        4
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 70%; left: 85%;" 
+                         onclick="showExplanation('products-search')">
+                        5
+                    </div>
+                </div>
+
+                <!-- Explicaciones para Productos -->
+                <div id="products-new" class="tooltip-box">
+                    <h6><i class="fas fa-plus-circle me-2 text-success"></i>Crear Nuevo Producto</h6>
+                    <p><strong>Función:</strong> Agregar nuevo producto al catálogo.</p>
+                    <p><strong>Uso:</strong> Haz clic aquí para abrir el formulario de creación de productos.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-arrow-right me-2"></i>Te llevará al formulario completo con todos los campos requeridos
+                    </div>
+                </div>
+
+                <div id="products-card" class="tooltip-box">
+                    <h6><i class="fas fa-box me-2 text-primary"></i>Tarjeta de Producto</h6>
+                    <p><strong>Función:</strong> Visualización de información del producto.</p>
+                    <p><strong>Uso:</strong> Muestra imagen, nombre, precio, stock y descripción del producto.</p>
+                    <ul class="mt-2">
+                        <li><strong>Nombre:</strong> Identificación principal</li>
+                        <li><strong>Precio:</strong> Valor de venta unitario</li>
+                        <li><strong>Stock:</strong> Cantidad disponible</li>
+                        <li><strong>Descripción:</strong> Características</li>
+                    </ul>
+                </div>
+
+                <div id="products-edit" class="tooltip-box">
+                    <h6><i class="fas fa-edit me-2 text-warning"></i>Editar Producto</h6>
+                    <p><strong>Función:</strong> Modificar información de producto existente.</p>
+                    <p><strong>Uso:</strong> Haz clic en el ícono de edición para modificar el producto seleccionado.</p>
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-pencil-alt me-2"></i>Se abrirá el formulario con los datos actuales para modificación
+                    </div>
+                </div>
+
+                <div id="products-delete" class="tooltip-box">
+                    <h6><i class="fas fa-trash me-2 text-danger"></i>Eliminar Producto</h6>
+                    <p><strong>Función:</strong> Remover producto del catálogo permanentemente.</p>
+                    <p><strong>Uso:</strong> Haz clic en el ícono de eliminación (aparecerá confirmación).</p>
+                    <div class="alert alert-danger mt-2">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Esta acción no se puede deshacer - requiere confirmación
+                    </div>
+                </div>
+
+                <div id="products-search" class="tooltip-box">
+                    <h6><i class="fas fa-search me-2 text-primary"></i>Búsqueda y Filtros</h6>
+                    <p><strong>Función:</strong> Encontrar productos específicos en el catálogo.</p>
+                    <p><strong>Uso:</strong> Escribe términos de búsqueda o usa filtros para encontrar productos.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-filter me-2"></i>Puedes filtrar por categoría, precio, stock y más criterios
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de Producto -->
+            <div class="demo-container">
+                <h4><i class="fas fa-edit me-2"></i>Formulario de Producto - Creación y Edición</h4>
+                <p class="text-muted">Formulario completo para gestionar toda la información de los productos del sistema.</p>
+                
+                <div class="image-wrapper">
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/FormularioProducto.png" 
+                         alt="Formulario de Creación/Edición de Productos" class="demo-image"
+                         onerror="handleImageError(this)">
+                    
+                    <!-- Indicadores de clic para Formulario -->
+                    <div class="click-indicator" style="top: 20%; left: 45%;" 
+                         onclick="showExplanation('form-name')">
+                        1
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 30%; left: 45%;" 
+                         onclick="showExplanation('form-desc')">
+                        2
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 40%; left: 45%;" 
+                         onclick="showExplanation('form-price')">
+                        3
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 50%; left: 45%;" 
+                         onclick="showExplanation('form-stock')">
+                        4
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 65%; left: 45%;" 
+                         onclick="showExplanation('form-save')">
+                        5
+                    </div>
+                </div>
+
+                <!-- Explicaciones para Formulario -->
+                <div id="form-name" class="tooltip-box">
+                    <h6><i class="fas fa-tag me-2 text-primary"></i>Nombre del Producto</h6>
+                    <p><strong>Función:</strong> Identificador principal del producto.</p>
+                    <p><strong>Uso:</strong> Ingresa el nombre comercial del producto. Campo obligatorio.</p>
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-asterisk me-2"></i>Este campo es requerido - no puede estar vacío
+                    </div>
+                </div>
+
+                <div id="form-desc" class="tooltip-box">
+                    <h6><i class="fas fa-align-left me-2 text-primary"></i>Descripción del Producto</h6>
+                    <p><strong>Función:</strong> Detalles y características del producto.</p>
+                    <p><strong>Uso:</strong> Describe las especificaciones, usos y beneficios del producto.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-search me-2"></i>La descripción ayuda en las búsquedas y para informar a clientes
+                    </div>
+                </div>
+
+                <div id="form-price" class="tooltip-box">
+                    <h6><i class="fas fa-dollar-sign me-2 text-primary"></i>Precio de Venta</h6>
+                    <p><strong>Función:</strong> Establecer el precio unitario de venta.</p>
+                    <p><strong>Uso:</strong> Ingresa el precio en formato numérico. Usa punto para decimales.</p>
+                    <div class="alert alert-success mt-2">
+                        <i class="fas fa-calculator me-2"></i>Ejemplo: 150000.00 para $150,000 pesos
+                    </div>
+                </div>
+
+                <div id="form-stock" class="tooltip-box">
+                    <h6><i class="fas fa-cubes me-2 text-primary"></i>Cantidad en Stock</h6>
+                    <p><strong>Función:</strong> Definir inventario inicial disponible.</p>
+                    <p><strong>Uso:</strong> Ingresa el número de unidades disponibles para venta.</p>
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-bell me-2"></i>El sistema alertará automáticamente cuando el stock sea bajo
+                    </div>
+                </div>
+
+                <div id="form-save" class="tooltip-box">
+                    <h6><i class="fas fa-save me-2 text-success"></i>Guardar Producto</h6>
+                    <p><strong>Función:</strong> Almacenar la información del producto en la base de datos.</p>
+                    <p><strong>Uso:</strong> Haz clic aquí después de completar todos los campos requeridos.</p>
+                    <div class="alert alert-success mt-2">
+                        <i class="fas fa-check-circle me-2"></i>El producto aparecerá inmediatamente en el catálogo después de guardar
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulos Adicionales -->
+        <section id="modulos">
+            <h2 class="section-title">4. Módulos Adicionales del Sistema</h2>
+            
+            <div class="instruction-panel">
+                <h5><i class="fas fa-lightbulb me-2"></i>Navegación entre Módulos</h5>
+                <p>Usa el menú lateral para acceder a todas las funcionalidades del sistema ERP:</p>
+                <div class="d-flex flex-wrap">
+                    <span class="module-badge"><i class="fas fa-users me-1"></i>Clientes</span>
+                    <span class="module-badge"><i class="fas fa-clipboard-list me-1"></i>Pedidos</span>
+                    <span class="module-badge"><i class="fas fa-truck-loading me-1"></i>Compras</span>
+                    <span class="module-badge"><i class="fas fa-shield-alt me-1"></i>Auditoría</span>
+                    <span class="module-badge"><i class="fas fa-cogs me-1"></i>Configuración</span>
+                </div>
+            </div>
+
+            <!-- Gestión de Clientes -->
+            <div class="demo-container">
+                <h4><i class="fas fa-users me-2"></i>Módulo de Gestión de Clientes</h4>
+                <p class="text-muted">Administración completa de la base de datos de clientes y contactos comerciales.</p>
+                
+                <div class="image-wrapper">
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Clientes.png" 
+                         alt="Módulo de Gestión de Clientes" class="demo-image"
+                         onerror="handleImageError(this)">
+                    
+                    <div class="click-indicator" style="top: 25%; left: 45%;" 
+                         onclick="showExplanation('clients-personal')">
+                        1
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 45%; left: 45%;" 
+                         onclick="showExplanation('clients-address')">
+                        2
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 70%; left: 45%;" 
+                         onclick="showExplanation('clients-save')">
+                        3
+                    </div>
+                </div>
+
+                <div id="clients-personal" class="tooltip-box">
+                    <h6><i class="fas fa-user me-2 text-primary"></i>Datos Personales del Cliente</h6>
+                    <p><strong>Función:</strong> Registrar información básica del cliente.</p>
+                    <p><strong>Uso:</strong> Completa nombres, apellidos, email, teléfono y datos de contacto.</p>
+                    <ul class="mt-2">
+                        <li><strong>Email:</strong> Para comunicaciones</li>
+                        <li><strong>Teléfono:</strong> Contacto directo</li>
+                        <li><strong>Fecha Nacimiento:</strong> Datos demográficos</li>
+                    </ul>
+                </div>
+
+                <div id="clients-address" class="tooltip-box">
+                    <h6><i class="fas fa-map-marker-alt me-2 text-primary"></i>Gestión de Direcciones</h6>
+                    <p><strong>Función:</strong> Administrar múltiples direcciones por cliente.</p>
+                    <p><strong>Uso:</strong> Define direcciones fiscal, de correspondencia y de entrega.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-home me-2"></i>Puedes tener diferentes direcciones para facturación y envíos
+                    </div>
+                </div>
+
+                <div id="clients-save" class="tooltip-box">
+                    <h6><i class="fas fa-save me-2 text-success"></i>Guardar Cliente</h6>
+                    <p><strong>Función:</strong> Almacenar toda la información del cliente.</p>
+                    <p><strong>Uso:</strong> Haz clic aquí para guardar el registro completo del cliente.</p>
+                    <div class="alert alert-success mt-2">
+                        <i class="fas fa-user-plus me-2"></i>El cliente quedará disponible inmediatamente para ventas y pedidos
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gestión de Pedidos -->
+            <div class="demo-container">
+                <h4><i class="fas fa-clipboard-list me-2"></i>Módulo de Gestión de Pedidos</h4>
+                <p class="text-muted">Control completo del proceso de ventas desde la creación hasta la entrega.</p>
+                
+                <div class="image-wrapper">
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Pedidos.png" 
+                         alt="Módulo de Gestión de Pedidos" class="demo-image"
+                         onerror="handleImageError(this)">
+                    
+                    <div class="click-indicator" style="top: 20%; left: 75%;" 
+                         onclick="showExplanation('orders-status')">
+                        1
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 35%; left: 75%;" 
+                         onclick="showExplanation('orders-actions')">
+                        2
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 50%; left: 75%;" 
+                         onclick="showExplanation('orders-details')">
+                        3
+                    </div>
+                </div>
+
+                <div id="orders-status" class="tooltip-box">
+                    <h6><i class="fas fa-tasks me-2 text-primary"></i>Estados de Pedidos</h6>
+                    <p><strong>Función:</strong> Seguimiento visual del estado del pedido.</p>
+                    <p><strong>Uso:</strong> Monitorea el progreso: Pendiente → Enviado → Entregado → Facturado.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-palette me-2"></i>Cada estado tiene un color diferente para identificación rápida
+                    </div>
+                </div>
+
+                <div id="orders-actions" class="tooltip-box">
+                    <h6><i class="fas fa-cog me-2 text-primary"></i>Acciones Rápidas</h6>
+                    <p><strong>Función:</strong> Gestionar pedidos directamente desde el listado.</p>
+                    <p><strong>Uso:</strong> Editar, cambiar estado, ver detalles o cancelar pedidos.</p>
+                    <ul class="mt-2">
+                        <li><strong>✏️ Editar:</strong> Modificar información</li>
+                        <li><strong>👁️ Ver:</strong> Detalles completos</li>
+                        <li><strong>🔄 Estado:</strong> Cambiar progreso</li>
+                    </ul>
+                </div>
+
+                <div id="orders-details" class="tooltip-box">
+                    <h6><i class="fas fa-search me-2 text-primary"></i>Ver Detalles de Pedido</h6>
+                    <p><strong>Función:</strong> Acceder a información completa del pedido.</p>
+                    <p><strong>Uso:</strong> Haz clic para ver productos, cantidades, precios y datos del cliente.</p>
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-file-invoice me-2"></i>Desde los detalles puedes generar facturas y documentos
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Configuración del Sistema -->
+        <section id="configuracion">
+            <h2 class="section-title">5. Configuración del Sistema</h2>
+            
+            <div class="demo-container">
+                <h4><i class="fas fa-cogs me-2"></i>Panel de Configuración Global</h4>
+                <p class="text-muted">Ajustes y parámetros generales que controlan el comportamiento de todo el sistema ERP.</p>
+                
+                <div class="image-wrapper">
+                    <img src="https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Configuracion.png" 
+                         alt="Panel de Configuración del Sistema" class="demo-image"
+                         onerror="handleImageError(this)">
+                    
+                    <div class="click-indicator" style="top: 25%; left: 20%;" 
+                         onclick="showExplanation('config-inventory')">
+                        1
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 40%; left: 20%;" 
+                         onclick="showExplanation('config-currency')">
+                        2
+                    </div>
+                    
+                    <div class="click-indicator" style="top: 60%; left: 20%;" 
+                         onclick="showExplanation('config-company')">
+                        3
+                    </div>
+                </div>
+
+                <div id="config-inventory" class="tooltip-box">
+                    <h6><i class="fas fa-boxes me-2 text-primary"></i>Configuración de Inventario</h6>
+                    <p><strong>Función:</strong> Parámetros de gestión de stock y alertas.</p>
+                    <p><strong>Uso:</strong> Define umbrales de stock bajo, políticas de reposición y alertas.</p>
+                    <ul class="mt-2">
+                        <li><strong>Stock Bajo:</strong> Cantidad mínima para alertas</li>
+                        <li><strong>Stock Mínimo:</strong> Nivel crítico de inventario</li>
+                        <li><strong>Alertas:</strong> Configurar notificaciones</li>
+                    </ul>
+                </div>
+
+                <div id="config-currency" class="tooltip-box">
+                    <h6><i class="fas fa-money-bill-wave me-2 text-primary"></i>Configuración Monetaria</h6>
+                    <p><strong>Función:</strong> Ajustes de moneda y formatos numéricos.</p>
+                    <p><strong>Uso:</strong> Define moneda principal, formatos de precio y decimales.</p>
+                    <div class="alert alert-info mt-2">
+                        <i class="fas fa-globe me-2"></i>Configura moneda local y tipos de cambio si manejas múltiples monedas
+                    </div>
+                </div>
+
+                <div id="config-company" class="tooltip-box">
+                    <h6><i class="fas fa-building me-2 text-primary"></i>Datos de la Empresa</h6>
+                    <p><strong>Función:</strong> Información corporativa para documentos.</p>
+                    <p><strong>Uso:</strong> Configura nombre, logo, dirección fiscal y datos de contacto.</p>
+                    <div class="alert alert-warning mt-2">
+                        <i class="fas fa-file-contract me-2"></i>Esta información aparece en facturas, cotizaciones y reportes
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h4><i class="fas fa-cubes me-2"></i>ERP SENA</h4>
+                    <p class="opacity-80">Sistema Integral de Gestión Empresarial</p>
+                    <p class="opacity-80">Manual Visual Interactivo v2.0</p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h5>Soporte Técnico</h5>
+                    <p class="opacity-80 mb-1"><i class="fas fa-envelope me-2"></i>soporte@erpsena.edu.co</p>
+                    <p class="opacity-80 mb-1"><i class="fas fa-phone me-2"></i>+57 1 234 5678</p>
+                    <p class="opacity-80"><i class="fas fa-clock me-2"></i>Lun-Vie: 8:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+            <hr class="my-4 opacity-25">
+            <div class="text-center">
+                <p class="mb-0 opacity-75">&copy; 2024 Sistema ERP SENA. Manual de Usuario Visual Interactivo.</p>
+                <p class="opacity-75">Desplegado con GitHub Pages</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // URLs de las imágenes en GitHub
+        const imageUrls = {
+            login: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Login.png',
+            dashboard: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Dashboard.png',
+            productos: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Productos.png',
+            formulario: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/FormularioProducto.png',
+            clientes: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Clientes.png',
+            pedidos: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Pedidos.png',
+            configuracion: 'https://raw.githubusercontent.com/fergmoon1/imagenes-para-manual-usuario-ERP/main/Configuracion.png'
+        };
+
+        // Función para manejar errores de imágenes
+        function handleImageError(img) {
+            console.log('Error cargando imagen:', img.src);
+            img.alt = 'Imagen no disponible - Verificar repositorio GitHub';
+            img.style.border = '2px dashed #dc3545';
+            img.style.padding = '20px';
+            
+            // Crear mensaje de error
+            const errorMsg = document.createElement('div');
+            errorMsg.innerHTML = `
+                <div class="alert alert-danger mt-2">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Error cargando imagen</strong><br>
+                    Verifica que el repositorio sea público y las imágenes existan en:<br>
+                    <code>${img.src}</code>
+                </div>
+            `;
+            img.parentNode.appendChild(errorMsg);
+        }
+
+        // Función para mostrar explicaciones
+        function showExplanation(id) {
+            // Ocultar todas las explicaciones primero
+            document.querySelectorAll('.tooltip-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            
+            // Mostrar la explicación seleccionada
+            const explanation = document.getElementById(id);
+            if (explanation) {
+                explanation.classList.add('active');
+                
+                // Scroll suave a la explicación
+                explanation.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }
+
+        // Back to top button functionality
+        document.querySelector('.back-to-top').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Mostrar/ocultar botón back to top
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // Smooth scrolling para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Preload images para mejor performance
+        document.addEventListener('DOMContentLoaded', function() {
+            showExplanation('login-email');
+            
+            // Preload todas las imágenes
+            Object.values(imageUrls).forEach(url => {
+                const img = new Image();
+                img.src = url;
+            });
+        });
+
+        // Verificar estado de las imágenes
+        window.addEventListener('load', function() {
+            const images = document.querySelectorAll('.demo-image');
+            let loadedCount = 0;
+            let errorCount = 0;
+
+            images.forEach(img => {
+                if (img.complete && img.naturalHeight !== 0) {
+                    loadedCount++;
+                } else {
+                    errorCount++;
+                }
+            });
+
+            console.log(`Imágenes cargadas: ${loadedCount}, Errores: ${errorCount}`);
+            
+            if (errorCount > 0) {
+                console.log('Algunas imágenes no se cargaron. Verifica las URLs en GitHub.');
+            }
+        });
+    </script>
+</body>
+</html>
